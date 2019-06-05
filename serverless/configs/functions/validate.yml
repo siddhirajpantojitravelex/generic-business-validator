@@ -1,5 +1,5 @@
   validate:
-    name: generic-business-validator-${opt:stage, self:provider.stage}
+    name: test-business-validator-${opt:stage, self:provider.stage}
     description: Generic Business Validator Service - ${opt:stage, self:provider.stage}
     handler: src/handlers/${self:provider.name}/business-validator-handler.handle
     package:

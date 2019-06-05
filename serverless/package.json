@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "api-test": "file:../api-test",
-    "winston_wrapper": "git+https://github.com/siddhirajpantoji/testLogger.git",
+    "winston-wrapper": "git+https://github.com/siddhirajpantoji/testLogger.git",
     "business-validator": "file:../api-operations/business-validator"
   },
   "directories": {
