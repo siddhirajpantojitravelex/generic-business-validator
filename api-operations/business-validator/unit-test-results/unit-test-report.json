@@ -1,0 +1,97 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 2,
+    "pending": 0,
+    "failures": 0,
+    "start": "2019-06-04T07:35:05.100Z",
+    "end": "2019-06-04T07:35:06.193Z",
+    "duration": 1093,
+    "testsRegistered": 2,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false,
+    "passPercentClass": "success",
+    "pendingPercentClass": "danger"
+  },
+  "suites": {
+    "uuid": "8195b2df-468f-49ee-a934-6ffad9393d23",
+    "title": "",
+    "fullFile": "",
+    "file": "",
+    "beforeHooks": [],
+    "afterHooks": [],
+    "tests": [],
+    "suites": [
+      {
+        "uuid": "b5abc4e6-ad7b-4fcb-beca-3feac984e2e7",
+        "title": "Validate ApiProcessor - Unit test",
+        "fullFile": "C:\\Middleware Transformation\\SPRINTS\\SPRINT 1\\MCT-50\\BusinessValidatorService\\api-operations\\business-validator\\unit-test\\BusinessValidatorApiTest.js",
+        "file": "\\unit-test\\BusinessValidatorApiTest.js",
+        "beforeHooks": [],
+        "afterHooks": [],
+        "tests": [
+          {
+            "title": "Should validate data row",
+            "fullTitle": "Validate ApiProcessor - Unit test Should validate data row",
+            "timedOut": false,
+            "duration": 1,
+            "state": "passed",
+            "speed": "fast",
+            "pass": true,
+            "fail": false,
+            "pending": false,
+            "code": "let testData = {\n    body: {\n        fileRow: { currency: \"AUD\", rate: 123 },\n        dataProcessors: {\n            businessValidators: {\n                type: \"simple\",\n                simple: { rules: [{ file: \"BusinessRuleValidator.js\" }] }\n            }\n        },\n        objectLocaltion: \"tvx-middleware-dev\"\n    }\n};\nApiProcessor.process(testData, '').then(response => {\n    console.log(response)\n    let expected = { isValid: true, message: 'Validation Successful' }\n    assert.equal(response.isValid, expected.isValid);\n});",
+            "err": {},
+            "isRoot": false,
+            "uuid": "231ae78d-e13b-4aac-a41c-fc8779b68ff6",
+            "isHook": false,
+            "skipped": false
+          },
+          {
+            "title": "Should not validate data row",
+            "fullTitle": "Validate ApiProcessor - Unit test Should not validate data row",
+            "timedOut": false,
+            "duration": 959,
+            "state": "passed",
+            "speed": "slow",
+            "pass": true,
+            "fail": false,
+            "pending": false,
+            "code": "setTimeout(done, 4000)\nlet testData = {\n    body: {\n        fileRow: { currency: \"AUD\" },\n        dataProcessors: {\n            businessValidators: {\n                type: \"simple\",\n                simple: { rules: [{ file: \"BusinessRuleValidator.js\" }] }\n            }\n        },\n        objectLocaltion: \"tvx-middleware-dev\"\n    }\n};\nApiProcessor.process(testData, '')\n    .catch(err => {\n        let expected = { isValid: true, message: 'Validation Successful' }\n        assert.equal(err.httpStatusCode, \"500\")\n        done();\n    });",
+            "err": {},
+            "isRoot": false,
+            "uuid": "7ddf3247-4e04-4dc6-9d5c-228fe0b86c87",
+            "isHook": false,
+            "skipped": false
+          }
+        ],
+        "suites": [],
+        "passes": [
+          "231ae78d-e13b-4aac-a41c-fc8779b68ff6",
+          "7ddf3247-4e04-4dc6-9d5c-228fe0b86c87"
+        ],
+        "failures": [],
+        "pending": [],
+        "skipped": [],
+        "duration": 960,
+        "root": false,
+        "rootEmpty": false,
+        "_timeout": 2000
+      }
+    ],
+    "passes": [],
+    "failures": [],
+    "pending": [],
+    "skipped": [],
+    "duration": 0,
+    "root": true,
+    "rootEmpty": true,
+    "_timeout": 2000
+  },
+  "copyrightYear": 2019
+}

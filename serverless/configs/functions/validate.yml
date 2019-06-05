@@ -1,0 +1,13 @@
+  validate:
+    name: generic-business-validator-${opt:stage, self:provider.stage}
+    description: Generic Business Validator Service - ${opt:stage, self:provider.stage}
+    handler: src/handlers/${self:provider.name}/business-validator-handler.handle
+    package:
+      include:
+        - src/handlers/${self:provider.name}/business-validator-handler.js
+        - node_modules/**
+    events:
+      - http:
+          path: validate
+          method: post
+          cors: true

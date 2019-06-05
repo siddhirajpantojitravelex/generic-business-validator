@@ -1,0 +1,21 @@
+{
+    "name": "business-validator",
+    "version": "1.0.0",
+    "description": "Business validator service",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha ./unit-test/*.js --reporter mochawesome --reporter-options reportDir=./unit-test-results,reportFilename=unit-test-report.html,code=false,autoOpen=false"
+    },
+    "dependencies": {
+        "chai": "^4.2.0",
+        "generic-exception": "git+https://github.com/MukeshTravelex/generic-exception.git",
+        "serverless-offline": "^5.0.1"
+    },
+    "license": "ISC",
+    "devDependencies": {
+        "aws-sdk": "^2.466.0",
+        "mocha": "^6.0.2",
+        "mochawesome": "^3.1.1"
+    },
+    "author": "Mukesh Singh"
+}
