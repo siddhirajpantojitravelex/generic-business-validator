@@ -9,7 +9,8 @@
     "dependencies": {
         "chai": "^4.2.0",
         "generic-exception": "git+https://github.com/MukeshTravelex/generic-exception.git",
-        "serverless-offline": "^5.0.1"
+        "serverless-offline": "^5.0.1",
+        "winston-wrapper": "git+https://github.com/siddhirajpantoji/testLogger.git"
     },
     "license": "ISC",
     "devDependencies": {

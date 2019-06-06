@@ -3,7 +3,7 @@ const ExceptionType = require('../model/ExceptionType');
 const ExceptionCategory = require('../model/ExceptionCategory');
 const businessValidatorDao = require('../dal/BusinessValidatorDao');
 const GenericException = require('generic-exception').GenericException;
-
+const logger = require('winston-wrapper').getLogger('business-validator-service')
 //let businessValidator = require('../transformer/BusinessRuleValidator');
 
 
@@ -16,6 +16,7 @@ class BusinessValidatorService {
      */
     async validate(businessValidatorBo) {
         return new Promise(async (resolve, reject) => {
+            logger.info("Inside Service ")
             if (businessValidatorBo && businessValidatorBo.businessRules) {
                 try {
                     // businessValidatorBo.businessRules.forEach(async rule => {

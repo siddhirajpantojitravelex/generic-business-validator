@@ -6,37 +6,45 @@ const ExceptionType = require('../model/ExceptionType');
 const BusinessValidatorDto = require('../model/BusinessValidatorDto');
 const businessValidatorService = require('../service/BusinessValidatorService');
 const businessValidatorTransformer = require('../transformer/BusinessValidatorTransformer');
-
+const winston  = require('winston-wrapper')
+const loggger = winston.getLogger('business-validator-api')
 
 class BusinessValidatorApi {
 
     async process(event, context) {
-        try {
-            let fileRow, dataProcessors, objectLocaltion;
-            if (event.body) {
-                fileRow = JSON.parse(event.body).fileRow;
-                dataProcessors = JSON.parse(event.body).dataProcessors;
-                objectLocaltion = JSON.parse(event.body).objectLocaltion;
-            } else {
-                fileRow = event.fileRow;
-                dataProcessors = event.dataProcessors;
-                objectLocaltion = event.objectLocaltion;
-            }
-            let businessValidatorDto = new BusinessValidatorDto(fileRow, dataProcessors, objectLocaltion);
-            let businessValidatorBo = await businessValidatorTransformer.transformToBo(businessValidatorDto);
-            return await businessValidatorService.validate(businessValidatorBo);
-
-        } catch (exception) {
-            if (!(exception instanceof GenericException)) {
-                let err = new GenericException.Builder(ExceptionType.MISSING_FILE_ROW_DATA)
-                    .withWrappedException(exception)
-                    .withMessage('Error occured!')
-                    .build();
-                throw err;
-            } else {
-                throw exception;
-            }
-        }
+        return new Promise((resolve,reject)=>{
+            winston.serverlessFunction(event,context,async ()=>{
+                try {
+                    loggger.info("Inside processor APi ")
+                    let fileRow, dataProcessors, objectLocaltion;
+                    if (event.body) {
+                        fileRow = JSON.parse(event.body).fileRow;
+                        dataProcessors = JSON.parse(event.body).dataProcessors;
+                        objectLocaltion = JSON.parse(event.body).objectLocaltion;
+                    } else {
+                        fileRow = event.fileRow;
+                        dataProcessors = event.dataProcessors;
+                        objectLocaltion = event.objectLocaltion;
+                    }
+                    let businessValidatorDto = new BusinessValidatorDto(fileRow, dataProcessors, objectLocaltion);
+                    let businessValidatorBo = await businessValidatorTransformer.transformToBo(businessValidatorDto);
+                    resolve( await businessValidatorService.validate(businessValidatorBo));
+                } catch (exception) {
+                    if (!(exception instanceof GenericException)) {
+                        let err = new GenericException.Builder(ExceptionType.MISSING_FILE_ROW_DATA)
+                            .withWrappedException(exception)
+                            .withMessage('Error occured!')
+                            .build();
+                        reject(err);
+                    } else {
+                        reject(exception)
+                        //throw exception;
+                    }
+                }
+            })
+            
+        });
+        
     }
 }
 module.exports = new BusinessValidatorApi();
